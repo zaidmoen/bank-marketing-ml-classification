@@ -1,0 +1,24 @@
+# Environments
+.venv/
+venv/
+ENV/
+env/
+python/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS
+Thumbs.db
+.DS_Store

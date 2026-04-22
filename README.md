@@ -1,194 +1,99 @@
-# 🏦 Bank Marketing ML Classification
+# Bank Marketing ML Classification
 
-<div align="center">
+This project uses the Bank Marketing dataset to classify the `poutcome` target into four classes:
 
-![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Classification-blue?style=for-the-badge&logo=scikit-learn)
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
+- `failure`
+- `other`
+- `success`
+- `unknown`
 
-> **Predicting term deposit subscriptions using Machine Learning on real-world bank marketing data.**
+The work is organized into three parts:
 
-</div>
+| Part | Description | File |
+|---|---|---|
+| 1 | Data exploration and preprocessing | `Part1_Preprocessing.ipynb` |
+| 2 | K-Means clustering, supervised modeling, tuning, and evaluation | `Part2_Modeling.ipynb` |
+| 3 | Written report and discussion in student style | `Part3_Report.md` |
 
----
+## Repository Structure
 
-## 📌 Project Overview
-
-This project applies **end-to-end Machine Learning** to the classic **Bank Marketing Dataset** to classify whether a client will subscribe to a term deposit (`yes` / `no`). The work is divided into two structured phases:
-
-| Phase | Description | Notebook |
-|-------|-------------|----------|
-| **Phase 1** | Data Preprocessing & Exploratory Data Analysis (EDA) | `Part1_Preprocessing.ipynb` |
-| **Phase 2** | Model Building, Training & Evaluation | `Part2_Modeling.ipynb` |
-
----
-
-## 🗂️ Repository Structure
-
-```
-bank-marketing-ml-classification/
-│
-├── 📓 Part1_Preprocessing.ipynb   # EDA, cleaning, feature engineering
-├── 📓 Part2_Modeling.ipynb        # Model training, evaluation, comparison
-├── 📊 bank.csv                    # Raw dataset (11,162 records × 17 features)
-├── 📄 ML_Project.pdf              # Full project report
-├── 🐍 scripts/
-│   └── generate_part2_notebook.py # Utility script for notebook generation
-├── .gitignore
-└── README.md
+```text
+nai/
+|-- Part1_Preprocessing.ipynb
+|-- Part2_Modeling.ipynb
+|-- Part3_Report.md
+|-- bank.csv
+|-- ML_Project.pdf
+|-- README.md
+`-- scripts/
+    `-- generate_part2_notebook.py
 ```
 
----
+## Dataset Summary
 
-## 📊 Dataset Overview
+- Total rows: `11,162`
+- Total columns: `17`
+- Main target used in modeling: `poutcome`
+- Secondary label in the dataset: `deposit`
 
-The dataset contains **11,162 client records** collected from direct phone call marketing campaigns by a Portuguese bank.
+The dataset contains both numerical and categorical features. In the preprocessing stage, the data was checked for quality, encoded, scaled, and split into train and test sets.
 
-| Feature | Type | Description |
-|---------|------|-------------|
-| `age` | Numeric | Age of the client |
-| `job` | Categorical | Type of job (admin, blue-collar, entrepreneur, …) |
-| `marital` | Categorical | Marital status (married, single, divorced) |
-| `education` | Categorical | Education level (primary, secondary, tertiary) |
-| `default` | Binary | Has credit in default? |
-| `balance` | Numeric | Average yearly bank balance (in euros) |
-| `housing` | Binary | Has housing loan? |
-| `loan` | Binary | Has personal loan? |
-| `contact` | Categorical | Contact communication type |
-| `day` | Numeric | Last contact day of the month |
-| `month` | Categorical | Last contact month |
-| `duration` | Numeric | Last contact duration (seconds) |
-| `campaign` | Numeric | Number of contacts during this campaign |
-| `pdays` | Numeric | Days since last contact from previous campaign |
-| `previous` | Numeric | Number of contacts before this campaign |
-| `poutcome` | Categorical | Outcome of previous campaign |
-| `deposit` | **Target** | Has the client subscribed? (**yes** / **no**) |
+## Part 1 Summary
 
----
+`Part1_Preprocessing.ipynb` includes:
 
-## 🔬 Phase 1 — Preprocessing & EDA
+- dataset inspection
+- feature type analysis
+- missing value and duplicate checks
+- exploratory plots
+- encoding and scaling
+- train/test split
 
-### ✅ Key Steps
+## Part 2 Summary
 
-- **Data Exploration**: Loaded and inspected 11,162 records × 17 features
-- **Quality Assurance**: Confirmed zero missing values and zero duplicates
-- **Univariate Analysis**: Distribution plots for all numerical and categorical features
-- **Multivariate Analysis**: Correlation heatmap and feature-target relationships
-- **Feature Engineering**:
-  - Label encoding for binary categorical features
-  - One-hot encoding for multi-class categorical features
-  - Standard scaling of numerical features
-- **Train/Test Split**: Stratified 80/20 split to preserve class balance
+`Part2_Modeling.ipynb` includes:
 
-### 📈 Key Findings
+- K-Means clustering with elbow method
+- comparison between clusters and real labels
+- MLP classification
+- Gradient Boosting classification
+- hyperparameter tuning with stratified k-fold cross validation
+- confusion matrices and metric comparison plots
 
-- The dataset is **imbalanced** — majority of clients did not subscribe (~88%)
-- `duration` (call duration) shows the strongest correlation with the target
-- Clients with no prior campaign contact had higher subscription rates
-- `poutcome = success` strongly predicts a positive outcome
+Main result from Part 2:
 
----
+- K-Means gave limited agreement with the true classes
+- Gradient Boosting gave the best final supervised result in the current experiments
 
-## 🤖 Phase 2 — Model Building & Evaluation
+## Part 3 Summary
 
-### Models Trained
+`Part3_Report.md` is the written report for the project. It covers:
 
-| Model | Description |
-|-------|-------------|
-| **Logistic Regression** | Baseline linear classifier |
-| **Decision Tree** | Interpretable tree-based model |
-| **Random Forest** | Ensemble of decision trees |
-| **K-Nearest Neighbors (KNN)** | Distance-based classifier |
-| **Support Vector Machine (SVM)** | Maximum margin classifier |
-| **Naive Bayes** | Probabilistic classifier |
+- the experiment setup
+- the main results
+- the effect of hyperparameter tuning
+- confusion matrix analysis
+- challenges and possible improvements
 
-### 📐 Evaluation Metrics
+## Running the Project
 
-- **Accuracy** — Overall correct predictions
-- **Precision & Recall** — Performance on the minority class
-- **F1-Score** — Harmonic mean of precision and recall
-- **Confusion Matrix** — Visual breakdown of TP, TN, FP, FN
-- **ROC-AUC** — Area under the ROC curve
+Open the files in this order:
 
----
+1. `Part1_Preprocessing.ipynb`
+2. `Part2_Modeling.ipynb`
+3. `Part3_Report.md`
 
-## 🚀 Getting Started
+## Requirements
 
-### Prerequisites
+The project was built with Python and common machine learning libraries:
 
-Make sure you have the following installed:
-- Python **3.10+**
-- Jupyter Notebook or JupyterLab
+- `pandas`
+- `numpy`
+- `matplotlib`
+- `seaborn`
+- `scikit-learn`
+- `jupyter`
 
-### Installation
+## Assignment Brief
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/zaidmoen/bank-marketing-ml-classification.git
-cd bank-marketing-ml-classification
-
-# 2. (Optional) Create a virtual environment
-python -m venv .venv
-source .venv/bin/activate    # On Windows: .venv\Scripts\activate
-
-# 3. Install required libraries
-pip install pandas numpy matplotlib seaborn scikit-learn jupyter
-
-# 4. Launch Jupyter
-jupyter notebook
-```
-
-### Running the Notebooks
-
-Run the notebooks **in order**:
-
-```bash
-# Step 1: Preprocessing & EDA
-jupyter notebook Part1_Preprocessing.ipynb
-
-# Step 2: Model Training & Evaluation
-jupyter notebook Part2_Modeling.ipynb
-```
-
----
-
-## 🛠️ Tech Stack
-
-| Tool | Purpose |
-|------|---------|
-| **Python 3.10+** | Core programming language |
-| **Pandas** | Data loading, cleaning, manipulation |
-| **NumPy** | Numerical operations |
-| **Matplotlib / Seaborn** | Data visualization & EDA |
-| **Scikit-Learn** | ML models, preprocessing, evaluation |
-| **Jupyter Notebook** | Interactive development environment |
-
----
-
-## 📄 Project Report
-
-A detailed written report is available in [`ML_Project.pdf`](./ML_Project.pdf) covering:
-- Problem statement and motivation
-- Methodology and experimental setup
-- Results and model comparison
-- Conclusions and future recommendations
-
----
-
-## 👤 Author
-
-<div align="center">
-
-**Zaid Moen**
-
-[![GitHub](https://img.shields.io/badge/GitHub-zaidmoen-181717?style=for-the-badge&logo=github)](https://github.com/zaidmoen)
-
-</div>
-
----
-
-<div align="center">
-<sub>⭐ If you found this project useful, please consider giving it a star!</sub>
-</div>
+The original assignment handout is in `ML_Project.pdf`.
